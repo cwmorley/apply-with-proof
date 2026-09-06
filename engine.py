@@ -1,4 +1,4 @@
-"""Offline, explainable analysis for the Career Evidence Compiler MVP.
+"""Offline, explainable analysis for the Apply With Proof MVP.
 
 This module intentionally avoids an LLM. It establishes the evidence boundary,
 review decisions, and artifact contract before adding model-generated prose.

@@ -1,4 +1,4 @@
-"""Local server for the Career Evidence Compiler MVP."""
+"""Local server for the Apply With Proof MVP."""
 
 from __future__ import annotations
 
@@ -19,12 +19,12 @@ WEB = ROOT / "web"
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "CareerEvidenceCompiler/0.1"
+    server_version = "ApplyWithProof/0.1"
 
     def do_GET(self) -> None:  # noqa: N802 - stdlib handler API
         path = urlparse(self.path).path
         if path == "/api/health":
-            self._json({"ok": True, "name": "career-evidence-compiler"})
+            self._json({"ok": True, "name": "apply-with-proof", "engine": "career-evidence-compiler"})
             return
         if path == "/" or path == "/index.html":
             self._file(WEB / "index.html")
@@ -93,5 +93,5 @@ class Handler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     address = ("127.0.0.1", int(os.environ.get("CEC_PORT", "8765")))
-    print(f"Career Evidence Compiler listening at http://{address[0]}:{address[1]}")
+    print(f"Apply With Proof listening at http://{address[0]}:{address[1]}")
     ThreadingHTTPServer(address, Handler).serve_forever()

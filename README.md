@@ -1,8 +1,10 @@
-# Career Evidence Compiler
+# Apply With Proof
 
-A local-first application kit for people whose strongest career evidence is spread across resumes, project notes, case studies, and a free-form career narrative.
+Evidence-grounded resume and application tailoring for serious job seekers.
 
-The product does not silently turn narrative material into resume claims. It surfaces candidate evidence, asks the user to approve or reject it, then produces a role-specific application package.
+Apply With Proof is a local-first application kit for people whose strongest career evidence is spread across resumes, project notes, case studies, and a free-form career narrative.
+
+The Career Evidence Compiler is the analysis engine behind the product. It does not silently turn narrative material into resume claims. It surfaces candidate evidence, asks the user to approve or reject it, then produces a role-specific application package.
 
 ## What is in this first slice
 
@@ -61,7 +63,7 @@ Evidence statuses:
 ## Repository shape
 
 ```text
-Career Evidence Compiler/
+Apply With Proof/
   app.py                     local HTTP server and JSON API
   engine.py                  deterministic analysis and artifact generation
   data/profile.example.json  generic example, safe to commit
