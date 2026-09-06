@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Career Evidence Compiler</title>
+    <link rel="stylesheet" href="/web/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">LOCAL-FIRST APPLICATION KIT</p>
+        <h1>Career Evidence Compiler</h1>
+        <p class="subtitle">Find the proof you forgot. Use only the proof you approve.</p>
+      </div>
+      <div class="status" id="save-status">Local browser storage</div>
+    </header>
+
+    <main class="layout">
+      <section class="inputs panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">SOURCE MATERIAL</p>
+            <h2>Build a target package</h2>
+          </div>
+          <button class="secondary" id="load-example">Load example</button>
+        </div>
+        <label>Master profile JSON <span class="hint">approved, reusable claims</span>
+          <textarea id="profile" spellcheck="false"></textarea>
+        </label>
+        <label>Career narrative <span class="hint">free-form; discoveries require review</span>
+          <textarea id="narrative"></textarea>
+        </label>
+        <label>Upload career narrative <span class="hint">PDF, DOCX, TXT, Markdown, or RTF</span>
+          <input id="narrative-file" type="file" accept=".pdf,.docx,.txt,.md,.markdown,.rtf" />
+          <span class="upload-status" id="narrative-file-status"></span>
+        </label>
+        <label>Job URL <span class="hint">public page; JavaScript-heavy pages may need pasted text</span>
+          <div class="url-row"><input id="job-url" type="url" placeholder="https://example.com/jobs/role" /><button class="secondary" id="fetch-job" type="button">Fetch</button></div>
+          <span class="upload-status" id="job-url-status"></span>
+        </label>
+        <label>Target job description
+          <textarea id="job"></textarea>
+        </label>
+        <label>Optional existing resume text <span class="hint">approved source for matching and ATS linting</span>
+          <textarea id="resume-text" class="short"></textarea>
+        </label>
+        <label>Upload existing resume <span class="hint">PDF, DOCX, TXT, Markdown, or RTF</span>
+          <input id="resume-file" type="file" accept=".pdf,.docx,.txt,.md,.markdown,.rtf" />
+          <span class="upload-status" id="resume-file-status"></span>
+        </label>
+        <div class="actions">
+          <button class="primary" id="analyze">Analyze role</button>
+          <button class="secondary" id="clear">Clear local data</button>
+        </div>
+        <p class="tiny">Nothing is sent to a model or saved on the server in this MVP. The browser stores this workspace locally.</p>
+      </section>
+
+      <section class="results panel">
+        <div id="empty-state" class="empty-state">
+          <div class="empty-icon">◎</div>
+          <h2>Start with one serious role</h2>
+          <p>Paste the job description and your source material. The first result is a fit view and evidence review—not a blindly generated resume.</p>
+        </div>
+        <div id="result-state" class="hidden">
+          <div class="result-header">
+            <div>
+              <p class="eyebrow">ROLE READOUT</p>
+              <h2 id="recommendation"></h2>
+              <p id="fit-note" class="muted"></p>
+            </div>
+            <div class="coverage" id="coverage"></div>
+          </div>
+          <div class="metrics" id="metrics"></div>
+
+          <div class="section-block">
+            <div class="section-title"><h3>Evidence you already approved</h3><span class="count" id="approved-count"></span></div>
+            <div id="approved-list" class="evidence-list"></div>
+          </div>
+
+          <div class="section-block review-block">
+            <div class="section-title"><h3>Expansion cards to review</h3><span class="count" id="candidate-count"></span></div>
+            <p class="muted">These came from the narrative. They are not deployable until you decide what they mean for this application.</p>
+            <div id="candidate-list" class="evidence-list"></div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-title"><h3>Missing or weakly represented terms</h3></div>
+            <div id="missing-list" class="chips"></div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-title"><h3>ATS/parser readiness</h3><span class="badge" id="ats-label"></span></div>
+            <p id="ats-disclaimer" class="muted"></p>
+            <div id="ats-list" class="check-list"></div>
+          </div>
+
+          <div class="generate-row">
+            <div><h3>Generate package</h3><p class="muted">Only approved profile claims and approved expansion cards will be used.</p></div>
+            <button class="primary" id="generate">Generate artifacts</button>
+          </div>
+          <div id="artifacts" class="artifacts hidden"></div>
+        </div>
+      </section>
+    </main>
+    <script src="/web/app.js"></script>
+  </body>
+</html>
