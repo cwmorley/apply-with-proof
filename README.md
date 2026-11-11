@@ -14,24 +14,45 @@ The Career Evidence Compiler is the analysis engine behind the product. It does 
 - A review queue with explicit decisions: use for this application, promote to master, context only, or reject.
 - Deterministic ATS/parser linting focused on explainable checks rather than a fake universal score.
 - Resume, cover-letter, interview-story, application-answer, and review artifacts.
-- A browser UI backed by a Python standard-library server. No API key or package install is required.
+- A browser UI backed by a Python standard-library server. No API key is required, and no package install is required except for PDF upload (see below).
 - An optional prompt-pack output for connecting a local or hosted language model later.
 - Public job-page URL extraction with a manual-text fallback for JavaScript-heavy or blocked pages.
 - Upload extraction for PDF, DOCX, TXT, Markdown, and RTF resumes or career narratives.
 
 ## Start it
 
-From this directory:
+Requires Python 3.10 or newer. From this directory:
 
-```powershell
+```sh
 python app.py
 ```
 
-Then open <http://127.0.0.1:8765>.
+(Use `python3` if `python` is not on your path.) Then open <http://127.0.0.1:8765>.
 
-If another local process already uses that port, start it on another one with `$env:CEC_PORT=8766` before running `python app.py`.
+If another local process already uses that port, start it on another one by setting `CEC_PORT` before running `python app.py`:
 
-The browser stores the working profile, narrative, job description, and review decisions in local browser storage. The server does not persist personal data.
+```powershell
+# PowerShell
+$env:CEC_PORT = 8766
+python app.py
+```
+
+```sh
+# bash / zsh
+CEC_PORT=8766 python app.py
+```
+
+PDF upload needs one optional package: `python -m pip install pypdf`. (Without it, the error message says "bundled pypdf"; nothing is bundled.) DOCX, TXT, and Markdown uploads, and everything else, use the standard library only. RTF is read as raw text, so formatting codes are not stripped. Without `pypdf`, a PDF upload returns an error and the other paths still work.
+
+The browser stores the working profile, narrative, resume text, job description, and job URL in local browser storage. Review decisions are held in memory only and reset on reload. The server does not persist personal data.
+
+## Run the tests
+
+```sh
+python -m unittest discover -s tests -v
+```
+
+No network access or extra packages are needed.
 
 ## First-use path
 
@@ -63,14 +84,17 @@ Evidence statuses:
 ## Repository shape
 
 ```text
-Apply With Proof/
+apply-with-proof/
   app.py                     local HTTP server and JSON API
   engine.py                  deterministic analysis and artifact generation
+  document_ingest.py         job-page fetch and resume/narrative upload extraction
+  data/*.example.*           reference copies of the examples (the UI's "Load example" is embedded in web/app.js; the server does not read data/)
   data/profile.example.json  generic example, safe to commit
   data/narrative.example.md  generic narrative example
   data/job.example.md        generic job description
   tests/test_engine.py       no-dependency tests for the evidence boundary
-  web/                       local UI
+  tests/test_document_ingest.py  tests for upload extraction
+  web/                       local UI (index.html, app.js, styles.css)
 ```
 
 ## Deliberate non-goals for this slice
@@ -82,3 +106,7 @@ Apply With Proof/
 - No server-side storage of a user's career data.
 
 The next useful increment is a review-first browser side panel for one or two ATS families, not universal autofill.
+
+## License
+
+Apache-2.0. See [LICENSE](LICENSE).
