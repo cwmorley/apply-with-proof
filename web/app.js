@@ -3,7 +3,7 @@ const EXAMPLE = {
     name: "Alex Morgan",
     headline: "Product and commercial systems builder",
     summary: "Cross-functional operator who turns ambiguous product, marketing, and operating problems into practical systems and measurable progress.",
-    contact: { email: "alex@example.com", phone: "555-0100", location: "Denver, CO", linkedin: "linkedin.com/in/alexmorgan" },
+    contact: { email: "alex@example.com", phone: "555-0100", location: "Anytown, ST", linkedin: "linkedin.com/in/alexmorgan" },
     skills: ["product marketing", "go-to-market", "CRM", "automation", "customer discovery", "analytics", "stakeholder leadership"],
     experiences: [
       { company: "Example Systems Co.", title: "Founder & Principal", dates: "2020–Present", bullets: ["Built go-to-market and business systems for technology and services clients.", "Designed CRM and automation workflows that connected lead capture, follow-up, and reporting.", "Translated customer discovery and market research into positioning, offers, and launch plans."] },
